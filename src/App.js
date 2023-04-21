@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
 import Login from "./Components/Login";
-import Chatbox from "./Components/Chatox";
+import Chatbox from "./Components/Chatbox";
+import Button from "./Components/Button";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,17 +20,14 @@ export default class App extends React.Component {
         {this.state.islogged && (
           <>
             <Chatbox name={this.state.name}></Chatbox>
-            
-            <button
-              onClick={() => {
+            <Button  onClick={() => {
                 this.setState({
                   islogged: false,
                   name: null,
                 });
-              }}
-            >
-              Logout
-            </button>
+              }}  className=" bg-red-700 border-red-600 py-1 px-3" >
+                Logout
+            </Button>
           </>
         )}
       </div>

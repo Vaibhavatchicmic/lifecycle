@@ -1,15 +1,6 @@
 import React from 'react';
-
-class Chat extends React.Component {
-    render() {
-        return (
-            <div>
-                <span>{this.props.own?"You":this.props.author} :</span>
-                <span>{this.props.message}</span>
-            </div>
-        );
-    }
-}
+import ChatContainer from './ChatContainer';
+import Button from './Button';
 
 let id=0;
 
@@ -34,26 +25,16 @@ export default class Chatbox extends React.Component {
     render() {
         console.log("render()")
         return (
-            <div>
+            <div className='flex flex-col justify-center'>
                 You are welcome {this.props.name}
-                <div>
+                <div className=' min-w-4xl mx-auto border-2'>
                     <div>
-                        <h3>All messages</h3>
-                        <div>
-                            {this.state.messages.map((mes) => {
-                                return (
-                                    <Chat
-                                        message={mes.message}
-                                        own={mes.author === this.props.name}
-                                        key={mes.id}
-                                        author={mes.author}
-                                    />
-                                );
-                            })}
-                        </div>
+                        <h3 className='text-center bg-blue-50'>All messages</h3>
+                        <ChatContainer messages={this.state.messages} name={this.props.name} />
                     </div>
                     <div>
                         <form
+                            className=' flex'
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 if (this.state.message_input) {
@@ -72,6 +53,7 @@ export default class Chatbox extends React.Component {
                             }}
                         >
                             <input
+                                className=' w-full border-t-2 px-4'
                                 placeholder="Message"
                                 value={this.state.message_input}
                                 onChange={(e) => {
@@ -80,7 +62,8 @@ export default class Chatbox extends React.Component {
                                     });
                                 }}
                             ></input>
-                            <button type="submit">Send</button>
+                            <Button className=" rounded-none"
+                             type="submit">Send</Button>
                         </form>
                     </div>
                 </div>
