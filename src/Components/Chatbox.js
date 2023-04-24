@@ -1,6 +1,7 @@
 import React from 'react';
 import ChatContainer from './ChatContainer';
 import Button from './Button';
+import ChatInput from './ChatInput';
 
 let id=0;
 
@@ -13,6 +14,8 @@ export default class Chatbox extends React.Component {
             new_messages:[],
             message_input: ''
         };
+        this.sendMessage=this.sendMessage.bind(this);
+        // setMessages=
         // console.log('Chatbox mounted');
     }
     
@@ -22,49 +25,31 @@ export default class Chatbox extends React.Component {
         return null
     }
 
+    sendMessage(mes){
+        this.setState({
+            messages: [
+                ...this.state.messages,
+                {
+                    author: this.props.name,
+                    id: id++,
+                    message:mes
+                }
+            ],
+        });
+    }
+
+
     render() {
         console.log("render()")
         return (
             <div className='flex flex-col justify-center'>
-                You are welcome {this.props.name}
-                <div className=' min-w-4xl mx-auto border-2'>
+                <div className=' m-auto border-2 w-11/12 '>
                     <div>
                         <h3 className='text-center bg-blue-50'>All messages</h3>
                         <ChatContainer messages={this.state.messages} name={this.props.name} />
                     </div>
                     <div>
-                        <form
-                            className=' flex'
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                if (this.state.message_input) {
-                                    this.setState({
-                                        messages: [
-                                            ...this.state.messages,
-                                            {
-                                                author: this.props.name,
-                                                id: id++,
-                                                message:this.state.message_input
-                                            }
-                                        ],
-                                        message_input: ''
-                                    });
-                                }
-                            }}
-                        >
-                            <input
-                                className=' w-full border-t-2 px-4'
-                                placeholder="Message"
-                                value={this.state.message_input}
-                                onChange={(e) => {
-                                    this.setState({
-                                        message_input: e.target.value
-                                    });
-                                }}
-                            ></input>
-                            <Button className=" rounded-none"
-                             type="submit">Send</Button>
-                        </form>
+                        <ChatInput onSubmit={this.sendMessage}/>
                     </div>
                 </div>
             </div>

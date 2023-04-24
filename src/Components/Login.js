@@ -7,7 +7,7 @@ export default class Login extends React.Component {
     };
     render() {
         return (
-            <div className="flex border-2 justify-center h-full mt-20 mx-auto p-5 w-80">
+            <div className="flex border-2 justify-center mt-20 mx-auto p-5 w-80">
                 <form
                     className="flex-col flex space-y-3"
                     onSubmit={(e) => {
